@@ -1,3 +1,20 @@
+## Sistem Penjaminan Mutu UNIPMA
+Sistem penjaminan mutu adalah sebuah sistem audit yang digunakan untuk mengaudit sebuah program studi pada suatu universitas di madiun. 
+
+## Screenshots
+![Screenshot_4](https://user-images.githubusercontent.com/48177875/127732360-89dc5a62-431a-47ac-97c4-3ec456c5c83b.jpg)
+![Screenshot_1](https://user-images.githubusercontent.com/48177875/127732387-7af6b814-8d62-4bed-a4a1-c886631e8692.jpg)
+![Screenshot_2](https://user-images.githubusercontent.com/48177875/127732392-f860f609-fbbd-4a41-9222-26b35be599d0.jpg)
+
+## Fitur Fitur
+Menggunakan Laravel 8 untuk developmentnya, memiliki fitur fitur:
+- Login multi auth/roles menggunakan spatie (terdapat 3 roles : admin,auditee,auditor).
+- CRUD (Create, Read, Update, Delete).
+- Filter data by year.
+- Print data.
+
+##
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
