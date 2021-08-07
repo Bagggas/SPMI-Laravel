@@ -8,10 +8,16 @@ Sistem penjaminan mutu adalah sebuah sistem audit yang digunakan untuk mengaudit
 
 ## Fitur Fitur
 Menggunakan Laravel 8 untuk developmentnya, memiliki fitur fitur:
-- Login multi auth/roles menggunakan spatie (terdapat 3 roles : admin,auditee,auditor).
-- CRUD (Create, Read, Update, Delete).
+- Login multi auth/roles by spatie (terdapat 3 roles : admin,auditee,auditor).
+- CRUD (Create, Read, Update, Delete) with relation.
 - Filter data by year.
-- Print data.
+- Print data as PDF.
+
+## Vendors
+- Spatie
+- Sweetalert
+- Bootstrap
+- Datatables
 
 ##
 
