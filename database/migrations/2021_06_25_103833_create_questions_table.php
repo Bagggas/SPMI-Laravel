@@ -18,7 +18,6 @@ class CreateQuestionsTable extends Migration
             $table->unsignedBigInteger('standart_id');
             $table->longText('question');
             $table->timestamps();
-
             $table->foreign('standart_id')->references('id')->on('standarts')->onDelete('cascade');
         });
     }

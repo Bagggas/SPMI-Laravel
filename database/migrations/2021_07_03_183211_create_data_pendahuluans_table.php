@@ -23,6 +23,7 @@ class CreateDataPendahuluansTable extends Migration
             $table->integer('total_penelitian');
             $table->integer('total_pengabdian');
             $table->integer('jumlah_kerjasama');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
