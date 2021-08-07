@@ -190,22 +190,6 @@
                         <span type="text" id="copy" class="text-secondary">{{ $data->first()->jumlah_kerjasama }}</span>
                     </div>
                 </div>
-                <div class="row pt-3 mb-3">
-                    <div class="col-2">Dokumen pendukung</div>
-                    <div class="col-auto">:</div>
-                    @if(!$respon->count())
-                        <div class="col-7 bg-light pt-1">
-                            <span type="text" id="copy" class="text-secondary">Data Kosong (Auditee Belum melakukan Pengisian Nilai)</span>
-                        </div>
-                    @else
-                        <div class="col-7 bg-light pt-1">
-                            <span type="text" id="copy" class="text-secondary">{{ $respon->first()->files_link }}</span>
-                        </div>
-                        <div class="col-auto">
-                            <a href="{{ $respon->first()->files_link }}" target="_blank"><button type="button" class="btn btn-outline-primary btn-sm shadow-none">Buka Tautan</button></a>
-                        </div>
-                    @endif
-                </div>
                 <div class="card p-3 mt-5">
                     <h4 class="text-center">Data Standart</h4>
                     <hr>
@@ -234,10 +218,10 @@
                                         </td>
                                         <td>
                                             @if(!$s->grades->count())
-                                                <a href="/auditor/{{ $s->id }}/{{ $user->first()->id }}/{{$data->first()->created_at->format('Y')}}/view"><button class="btn btn-sm btn-warning">Lihat Data</button></a>
+                                                <a href="/auditor/{{ $s->id }}/{{ $user->first()->id }}/{{$data->first()->created_at->format('Y')}}/view"><button class="btn btn-sm btn-warning">Lihat Nilai</button></a>
                                                 <a href="/auditor/{{ $s->id }}/{{ $user->first()->id }}/{{$data->first()->created_at->format('Y')}}/auditing"><button class="btn btn-sm btn-success">Audit</button></a>
                                             @else
-                                                <a href="/auditor/{{ $s->id }}/{{ $user->first()->id }}/{{$data->first()->created_at->format('Y')}}/view"><button class="btn btn-sm btn-warning">Lihat Data</button></a>
+                                                <a href="/auditor/{{ $s->id }}/{{ $user->first()->id }}/{{$data->first()->created_at->format('Y')}}/view"><button class="btn btn-sm btn-warning">Lihat Nilai</button></a>
                                             @endif
                                         </td>
                                     </tr>

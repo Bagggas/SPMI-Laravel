@@ -249,7 +249,7 @@
                                 <select class="form-select" name="type" aria-label="Default select example">
                                     <option value="{{ $v->type }}" selected>{{ $v->type }}</option>
                                     @if($v->type == 'Likert')
-                                        <option value="Ya/Tidak">Ya/Tidak</option>
+                                        <option value="Ya/Tidak">Sesuai </option>
                                     @else
                                         <option value="Likert">Likert</option>
                                     @endif

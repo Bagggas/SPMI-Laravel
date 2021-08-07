@@ -36,7 +36,6 @@ class AuditorController extends Controller
 //        }
 //        )->get();
 
-
 //        dd($data);
 
         $check = Question::whereYear('created_at','=', Carbon::now()->format('Y'))
@@ -125,7 +124,15 @@ class AuditorController extends Controller
 
     public function auditing($standartId, $userId)
     {
+        $respon = Response::where('standart_id', '=', $standartId)
+            ->where('user_id','=',$userId)
+            ->get();
+
         $userId = User::where('id', '=', $userId)->get();
+
+//        dd($respon);
+
+//        dd($userId);
 
         $standarts = Standart::with('questions')
             ->where('id', '=', $standartId)->get();
@@ -134,7 +141,7 @@ class AuditorController extends Controller
 
         $yatidak = ["Ya","Tidak"];
 
-        return view('auditor.response.auditing', compact('standarts','likert','yatidak','userId'));
+        return view('auditor.response.auditing', compact('standarts','likert','yatidak','userId','respon'));
     }
 
     public function auditorResponse($id, $year)

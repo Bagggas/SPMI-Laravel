@@ -116,7 +116,7 @@
                                 value="Likert">Skala Likert
                         </button>
                         <button name="type" type="submit" class="btn btn-outline-primary btn-lg"
-                                value="Ya/Tidak">Ya / Tidak
+                                value="Ya/Tidak">Sesuai / Tidak Sesuai
                         </button>
                     </div>
                 </div>
@@ -230,7 +230,13 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td class="text-capitalize">{{ $v->name }}</td>
                                     <td>{{ $v->created_at->format('Y') }}</td>
-                                    <td class="text-capitalize">{{ $v->type }}</td>
+                                    <td class="text-capitalize">
+                                        @if($v->type == 'Likert')
+                                        Likert
+                                        @else
+                                        Sesuai/Tidak Sesuai
+                                        @endif
+                                    </td>
                                     @if(!$v->questions->count())
                                         <td style="width: 15%">
                                             <span type="button" class="badge rounded-pill bg-danger tips"

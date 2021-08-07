@@ -198,18 +198,18 @@
                         </div>
                     </li>
 
-{{--                    <li class="mb-1">--}}
-{{--                        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"--}}
-{{--                                data-bs-target="#account-collapse" aria-expanded="false">--}}
-{{--                            <span>Penilaian</span>--}}
-{{--                        </button>--}}
-{{--                        <div class="collapse" id="account-collapse">--}}
-{{--                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">--}}
-{{--                                <li><a href="#" class="link-dark rounded">Penilaian</a></li>--}}
-{{--                                <li><a href="#" class="link-dark rounded">Penilaian</a></li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
+                    {{--                    <li class="mb-1">--}}
+                    {{--                        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"--}}
+                    {{--                                data-bs-target="#account-collapse" aria-expanded="false">--}}
+                    {{--                            <span>Penilaian</span>--}}
+                    {{--                        </button>--}}
+                    {{--                        <div class="collapse" id="account-collapse">--}}
+                    {{--                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">--}}
+                    {{--                                <li><a href="#" class="link-dark rounded">Penilaian</a></li>--}}
+                    {{--                                <li><a href="#" class="link-dark rounded">Penilaian</a></li>--}}
+                    {{--                            </ul>--}}
+                    {{--                        </div>--}}
+                    {{--                    </li>--}}
 
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
@@ -229,95 +229,128 @@
             <h2 class="text-center">Penilai Mutu Universitas PGRI Madiun</h2>
             <hr>
             <div class="container">
-            @foreach($standarts as $s)
-                @foreach($s->questions as $q)
-                    <form action="/standart/{{ $q->standart_id }}/{{ $userId->first()->id }}/auditor/grade/post" method="post">
-                @endforeach
-            @endforeach
-                    @csrf
-                    <table class="table table-striped table-hover table-bordered">
-                        <thead>
-                        <tr>
-                            <th rowspan="2" class="text-center align-text-top">No</th>
-                            <th rowspan="2" class="text-center align-text-top">Pertanyaan</th>
-                            @foreach($standarts as $s)
-                                @if($s->type == 'Likert')
-                                    <th colspan="4" class="text-center">Pilihan Jawaban</th>
-                                @else
-                                    <th colspan="2" class="text-center">Pilihan Jawaban</th>
-                                @endif
+                <div class="row pt-3 mb-4">
+                    <div class="col-10">
+                        <div class="row pt-3 mb-3">
+                            <div class="col-3">Dokumen pendukung</div>
+                            <div class="col-auto">:</div>
+                            @if(!$respon->count())
+                                <div class="col-7 bg-light pt-1">
+                                    <span type="text" id="copy" class="text-secondary">Data Kosong (Auditee Belum melakukan Pengisian)</span>
+                                </div>
+                            @else
+                                <div class="col-6 bg-light pt-1 text-wrap text-break">
+                                    <span type="text" class="text-secondary">{{ $respon->first()->files_link }} </span>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="{{ $respon->first()->files_link }}" target="_blank"><button type="button" class="btn btn-outline-primary btn-sm shadow-none">Buka Tautan</button></a>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="row pt-3 mb-3">
+                            <div class="col-3">Keterangan Auditee</div>
+                            <div class="col-auto">:</div>
+                            @if(!$respon->count())
+                                <div class="col-7 bg-light pt-1">
+                                    <span type="text" id="copy" class="text-secondary">Data Kosong (Auditee Belum melakukan Pengisian)</span>
+                                </div>
+                            @else
+                                <div class="col-7 bg-light pt-1">
+                                    <span type="text" id="copy" class="text-secondary">{{ $respon->first()->description }}</span>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                @foreach($standarts as $s)
+                    @foreach($s->questions as $q)
+                        <form action="/standart/{{ $q->standart_id }}/{{ $userId->first()->id }}/auditor/grade/post" method="post">
                             @endforeach
-                        </tr>
-                        <tr>
-                            @foreach($standarts as $s)
-                                @if($s->type == 'Likert')
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">2</td>
-                                    <td class="text-center">3</td>
-                                    <td class="text-center">4</td>
-                                @else
-                                    <th scope="col" class="text-center">Ya</th>
-                                    <th scope="col" class="text-center">Tidak</th>
-                                @endif
                             @endforeach
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($standarts as $s)
-                            @foreach($s->questions as $key=>$q)
+                            @csrf
+                            <table class="table table-striped table-hover table-bordered">
+                                <thead>
                                 <tr>
-                                    <td style="width: 7%;" class="text-center">{{ $loop->iteration }}</td>
-                                    <td>
-                                        <input type="hidden" id="question" name="question[{{$key}}][question]" value="{{$q->question}}">
-                                        <input type="hidden" id="question" name="question[{{$key}}][question_id]" value="{{$q->id}}">
-                                        <input type="hidden" id="question" name="standart_id" value="{{$s->id}}">
-                                        <input type="hidden" id="question" name="auditor_id" value="{{ Auth::user()->id }}">
-                                        <input type="hidden" id="question" name="user_id" value="{{ $userId->first()->id }}">
-                                        <input type="hidden" id="question" name="typegrade" value="Auditor">
-                                        {{$q->question}}
-                                    </td>
-
-                                    @if($s->type == 'Likert')
-                                        @foreach($likert as $l)
-                                            <td style="width: 10%;" class="text-center">
-                                                <input class="form-check-input @error('question.' . $key . '.answer') is-invalid @enderror"
-                                                       type="radio" name="question[{{$key}}][answer]" id="question{{$q->id}}" value="{{ $l }}">
-                                            </td>
-                                        @endforeach
-                                    @else
-                                        @foreach($yatidak as $y)
-                                            <td style="width: 10%;" class="text-center" >
-                                                <input class="form-check-input @error('question.' . $key . '.answer') is-invalid @enderror"
-                                                       type="radio" name="question[{{$key}}][answer]" id="question{{$q->id}}" value="{{ $y }}">
-                                            </td>
-                                        @endforeach
-                                    @endif
+                                    <th rowspan="2" class="text-center align-text-top">No</th>
+                                    <th rowspan="2" class="text-center align-text-top">Pertanyaan</th>
+                                    @foreach($standarts as $s)
+                                        @if($s->type == 'Likert')
+                                            <th colspan="4" class="text-center">Pilihan Jawaban</th>
+                                        @else
+                                            <th colspan="2" class="text-center">Pilihan Jawaban</th>
+                                        @endif
+                                    @endforeach
                                 </tr>
-                            @endforeach
-                        @endforeach
-                        </tbody>
-                    </table>
-                    <div class="row pt-3 mb-4">
-                        <div class="col-auto">Keterangan :</div>
-                        <div class="col-10">
-                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" aria-describedby="description" id="description" rows="3" >{{ old('description') }}</textarea>
-                            @error('description')
-                            <div id="description" class="invalid-feedback">
-                                Deskripsi wajib diisi
+                                <tr>
+                                    @foreach($standarts as $s)
+                                        @if($s->type == 'Likert')
+                                            <td class="text-center">1</td>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center">4</td>
+                                        @else
+                                            <th scope="col" class="text-center">Ya</th>
+                                            <th scope="col" class="text-center">Tidak</th>
+                                        @endif
+                                    @endforeach
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($standarts as $s)
+                                    @foreach($s->questions as $key=>$q)
+                                        <tr>
+                                            <td style="width: 7%;" class="text-center">{{ $loop->iteration }}</td>
+                                            <td>
+                                                <input type="hidden" id="question" name="question[{{$key}}][question]" value="{{$q->question}}">
+                                                <input type="hidden" id="question" name="question[{{$key}}][question_id]" value="{{$q->id}}">
+                                                <input type="hidden" id="question" name="standart_id" value="{{$s->id}}">
+                                                <input type="hidden" id="question" name="auditor_id" value="{{ Auth::user()->id }}">
+                                                <input type="hidden" id="question" name="user_id" value="{{ $userId->first()->id }}">
+                                                <input type="hidden" id="question" name="typegrade" value="Auditor">
+                                                {{$q->question}}
+                                            </td>
+
+                                            @if($s->type == 'Likert')
+                                                @foreach($likert as $l)
+                                                    <td style="width: 10%;" class="text-center">
+                                                        <input class="form-check-input @error('question.' . $key . '.answer') is-invalid @enderror"
+                                                               type="radio" name="question[{{$key}}][answer]" id="question{{$q->id}}" value="{{ $l }}">
+                                                    </td>
+                                                @endforeach
+                                            @else
+                                                @foreach($yatidak as $y)
+                                                    <td style="width: 10%;" class="text-center" >
+                                                        <input class="form-check-input @error('question.' . $key . '.answer') is-invalid @enderror"
+                                                               type="radio" name="question[{{$key}}][answer]" id="question{{$q->id}}" value="{{ $y }}">
+                                                    </td>
+                                                @endforeach
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                                </tbody>
+                            </table>
+                            <div class="row pt-3 mb-4">
+                                <div class="col-auto">Keterangan :</div>
+                                <div class="col-10">
+                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" aria-describedby="description" id="description" rows="3" >{{ old('description') }}</textarea>
+                                    @error('description')
+                                    <div id="description" class="invalid-feedback">
+                                        Deskripsi wajib diisi
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row pt-3 mb-4">
-                        <div class="col-auto pe-0">
-                            <button onclick="simpanFunction()" type="submit" class="btn btn-success">Simpan</button>
-                        </div>
-                        <div class="col-auto">
-                            <a type="button" onclick="batalFunction()" href="{{ url()->previous() }}" class="btn btn-secondary">Batal</a>
-                        </div>
-                    </div>
-                </form>
+                            <hr>
+                            <div class="row pt-3 mb-4">
+                                <div class="col-auto pe-0">
+                                    <button onclick="simpanFunction()" type="submit" class="btn btn-success">Simpan</button>
+                                </div>
+                                <div class="col-auto">
+                                    <a type="button" onclick="batalFunction()" href="{{ url()->previous() }}" class="btn btn-secondary">Batal</a>
+                                </div>
+                            </div>
+                        </form>
             </div>
         </div>
     </div>
