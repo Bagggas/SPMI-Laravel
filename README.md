@@ -13,7 +13,7 @@ Menggunakan Laravel 8 untuk developmentnya, memiliki fitur fitur:
 - Filter data by year.
 - Print data as PDF.
 
-##Vendors
+## Vendors
 - Spatie
 - Sweetalert
 - Bootstrap
