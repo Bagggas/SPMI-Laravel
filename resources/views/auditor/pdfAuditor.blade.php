@@ -172,7 +172,7 @@
 
     <table class="table table-bordered mt-5 ">
         <tr>
-            <th colspan="4" class="text-center fs-3 bg-light">Penilaian Self-Assessment</th>
+            <th colspan="4" class="text-center fs-3 bg-light">Penilaian Auditor</th>
         </tr>
         <tr class="text-center bg-light">
             <th>No</th>
