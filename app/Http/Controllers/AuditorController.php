@@ -183,7 +183,6 @@ class AuditorController extends Controller
             ->get();
 
         $dataAuditor = Grade::where('standart_id', '=', $standart )
-            ->where('auditor_id', '=', $uid)
             ->where('user_id', '=', $user)
             ->whereYear('created_at','=', $year)
             ->get();
