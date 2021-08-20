@@ -200,12 +200,20 @@ class AuditorController extends Controller
             ->whereYear('created_at','=', $year)
             ->get();
 
+        $auditAuditor = \DB::table('grades')
+            ->join('users', 'grades.auditor_id', '=' , 'users.id')
+            ->where('grades.standart_id', '=', $standart )
+            ->whereYear('grades.created_at','=', $year)
+            ->where('grades.user_id', '=', $user)
+            ->select('users.name','grades.description')
+            ->groupBy('grades.auditor_id')
+            ->get();
 
         $standartsAuditee = Standart::where('id', '=', $standart)->get();
         $standartsAuditor = Standart::where('id', '=', $standart)->get();
 
 
-        return view('auditor.response.view', compact('gradeAuditee','gradeAuditor','dataAuditee','dataAuditor','standartsAuditee','standartsAuditor'));
+        return view('auditor.response.view', compact('auditAuditor','gradeAuditee','gradeAuditor','dataAuditee','dataAuditor','standartsAuditee','standartsAuditor'));
     }
 
     /**

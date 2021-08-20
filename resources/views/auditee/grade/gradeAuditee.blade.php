@@ -271,6 +271,15 @@
                 <div class="card-header mb-0 border-0">
                     <blockquote class="blockquote text-center">
                         <h3 class="pt-3 fw-bold"> Penilaian Auditor </h3>
+                        <figcaption class="blockquote-footer mt-1">
+                            Auditor : <cite title="Source Title">
+                                @if( $auditAuditor->isEmpty() )
+                                    Data Kosong
+                                @else
+                                    {{ $auditAuditor->first()->name }}
+                                @endif
+                                </cite>
+                        </figcaption>
                     </blockquote>
                 </div>
                 <table id="table_grade" class="table table-striped table-hover table-bordered text-center">
@@ -394,6 +403,7 @@
                                     <span>Buruk</span>
                                 @endif
                             </h2>
+
                         </blockquote>
                     </div>
                 @else
@@ -403,7 +413,6 @@
                             <h4 class="text-secondary text-capitalize pt-3 ">Data Kosong</h4>
                         </blockquote>
                     </div>
-
                 @endif
         </div>
         </div>
