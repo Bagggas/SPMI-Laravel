@@ -66,6 +66,19 @@ class AuditorController extends Controller
             })
             ->where('id','=',$userId)->get();
 
+        $auditAuditor = \DB::table('grades')
+            ->join('users', 'grades.auditor_id', '=' , 'users.id')
+            ->where('grades.user_id', '=', $userId)
+            ->select('users.name','grades.description')
+            ->groupBy('auditor_id')
+            ->get();
+
+        $auditorName = $auditAuditor->pluck('name')->join(', ');
+
+//        dd($auditorName);
+
+//        dd($auditAuditor);
+
 //        dd($dataAuditor);
         $tableAuditee = \DB::table('grade_storings')
             ->join('standarts', 'grade_storings.standart_id', '=', 'standarts.id')
@@ -110,10 +123,10 @@ class AuditorController extends Controller
 
         $avgauditor = round($countauditor);
 
-        $pdf = PDF::loadView('auditor.pdfAuditor', compact('data','dataAuditor', 'tableAuditee','avgauditor', 'avgauditee', 'tableAuditor', 'year'));
+        $pdf = PDF::loadView('auditor.pdfAuditor', compact('data','dataAuditor', 'tableAuditee','avgauditor', 'avgauditee', 'tableAuditor', 'year', 'auditAuditor', 'auditorName'));
         return $pdf->download('Penjaminan-Mutu-Internal-' .$name = \Str::of($nameslug)->slug('-'). '.pdf');
 
-//        return view('auditor.pdfAuditor', compact('data','dataAuditor', 'tableAuditee','avgauditor', 'avgauditee', 'tableAuditor', 'year'));
+//        return view('auditor.pdfAuditor', compact('data','dataAuditor', 'tableAuditee','avgauditor', 'avgauditee', 'tableAuditor', 'year', 'auditAuditor', 'auditorName'));
     }
 
 

@@ -61,10 +61,10 @@
     <table class="table table-bordered">
         <tr>
             <td>
-                @if( $dataAuditor->first()->gradeStorings->isEmpty() )
-                    Nama Auditor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Data Kosong (Auditor Belum Mengaudit Data Anda)
+                @if( !$auditAuditor->isEmpty() )
+                    Nama Auditor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ $auditorName }}
                 @else
-                    Nama Auditor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ $dataAuditor->first()->gradeStorings->first()->UserViewAuditor->name }}
+                    Nama Auditor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Data Kosong.
                 @endif
             </td>
             <td>
@@ -206,9 +206,31 @@
         </tr>
     </table>
 
+    <table class="table table-bordered mt-5 ">
+        <tr>
+            <th colspan="4" class="text-center fs-3 bg-light">Keterangan Auditor</th>
+        </tr>
+        <tr class="text-center bg-light">
+            <th>No</th>
+            <th>Auditor</th>
+            <th>Keterangan</th>
+        </tr>
+        @foreach($auditAuditor as $a)
+            <tr class="text-justify text-capitalize">
+                <th class="text-center" scope="row">{{ $loop->iteration }}</th>
+                <td class="text-center fw-semibold text-capitalize">{{ $a->name }}</td>
+                <td style="width: 700px;">{{ $a->description }}</td>
+            </tr>
+        @endforeach
+        <tr>
+            <th colspan="4" class="text-center ">Rata-Rata : {{ $avgauditor }}</th>
+        </tr>
+    </table>
+
+    <br><br><br>
     <div class="d-flex align-items-end flex-column">
         <div class="p-2 bd-highlight">Madiun, {{ \Carbon\Carbon::now()->format('d M Y') }}</div>
-        <br><br>
+        <br><br><br>
         <div class="p-2 bd-highlight">(________________________________)</div>
     </div>
 
